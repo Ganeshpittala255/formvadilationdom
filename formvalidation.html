@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="display:flex;justify-content: center;align-content: center;margin-top: 300px;">
+        
+    <form id="myForm" style="text-align: center;border-radius: 50px;">
+        <h1 style="font-size: 50px;">userdetails</h1>
+        <input type="text" id="name" placeholder="Username" style="margin-top: 100px;font-size: x-large;"><br><br>
+        <input type="password" id="pw" placeholder="Password" style="font-size: x-large"><br><br>
+        <button type="submit" style="font-size: x-large;border-radius: 20px;">Submit</button>
+    </form>
+    
+    <script>
+        let getForm = document.getElementById("myForm");
+            getForm.style.backgroundColor="wheat";
+            getForm.style.boxShadow="0px 2px 3px 5px"
+            getForm.style.width="400px"
+            getForm.style.height="400px"
+            
+
+        getForm.addEventListener("submit", (event) => {
+            event.preventDefault(); 
+    
+            let existingUsers = localStorage.getItem("userdetails");
+            let users = existingUsers ? JSON.parse(existingUsers) : [];
+            let input1 = document.getElementById("name").value;
+            
+            let input2 = document.getElementById("pw").value;
+    
+            let userExists = users.some(user => user.name === input1 && user.pw === input2);
+            if (userExists) {
+                alert("User already exists!");
+                return;
+            }
+    
+            let userDetails = { name: input1, pw: input2 };
+            users.push(userDetails);
+            localStorage.setItem("userdetails", JSON.stringify(users));
+    
+            
+            document.getElementById("name").value = "";
+            document.getElementById("pw").value = "";
+        });
+        localStorage.clear()
+    </script>
+
+
+        <!-- localStorage.clear()   </script> -->
+
+</body>
+</html>
